@@ -3,7 +3,7 @@ import random
 import logging
 
 from src.guesser import Guesser, Human
-from src.models import Answer, Guess
+from src.models import Answer, Attempt
 
 
 logging.basicConfig(level=logging.INFO)
@@ -15,21 +15,21 @@ WORDS = ["guess", "house", "bingo"]
 
 def play(answer: Answer, guesser: Guesser):
     while True:
-        guess = guesser.guess()
+        attempt = Attempt(
+            guess=guesser.guess(),
+            answer=answer
+        )
 
-        print(f"{guess=}")
-        status = answer.eval(guess)
-        if status.won:
-            print(f"You won! - {guess} == {answer}")
-            break
+        print(attempt)
+        if attempt.is_successful():
+            print("You won!")
+            return
 
 
 def main():
     answer = Answer.from_word(random.choice(WORDS))
     guesser = Human()
-
-    while True:
-        play(answer=answer, guesser=guesser)
+    play(answer=answer, guesser=guesser)
 
 
 if __name__ == "__main__":
