@@ -1,0 +1,32 @@
+
+[project]
+name = "wordle.py"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Jan Laermann", email = "laermannjan@gmail.com"},
+]
+dependencies = [
+    "pydantic>=1.10.7",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=23.3.0",
+    "ruff>=0.0.265",
+    "mypy>=1.2.0",
+    "pre-commit>=3.3.1",
+]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff.isort]
+known-first-party = ["src"]
