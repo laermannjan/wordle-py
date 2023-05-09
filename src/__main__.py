@@ -11,19 +11,22 @@ logger = logging.getLogger(__name__)
 
 
 WORDS = ["guess", "house", "bingo"]
+MAX_ATTEMPTS = 5
 
 
 def play(answer: Answer, guesser: Guesser):
-    while True:
-        attempt = Attempt(
-            guess=guesser.guess(),
-            answer=answer
+    for attempt_id in range(MAX_ATTEMPTS):
+        guess = guesser.guess([])
+        attempt = Attempt.from_answer(
+            guess=guess,
+            answer=answer,
         )
 
         print(attempt)
         if attempt.is_successful():
             print("You won!")
             return
+    print("You lost!")
 
 
 def main():

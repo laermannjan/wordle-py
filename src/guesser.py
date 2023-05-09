@@ -1,16 +1,16 @@
 from abc import ABC, abstractmethod
-from src.models import Guess
+from src.models import Guess, Attempt
 from pydantic import ValidationError
 
 
 class Guesser(ABC):
     @abstractmethod
-    def guess(self) -> Guess:
+    def guess(self, past: list[Attempt]) -> Guess:
         pass
 
 
 class Human(Guesser):
-    def guess(self) -> Guess:
+    def guess(self, path: list[Attempt]) -> Guess:
         guess = None
         while guess is None:
             try:

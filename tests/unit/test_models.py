@@ -34,5 +34,5 @@ def test_match(guess, answer, clue):
 def test_successful_attempt(guess, answer, is_success):
     test_guess = Guess.from_word(guess)
     test_answer = Answer.from_word(answer)
-    assert Attempt(guess=test_guess, answer=test_answer).is_successful() == is_success
+    assert Attempt.from_answer(guess=test_guess, answer=test_answer).is_successful() == is_success
     

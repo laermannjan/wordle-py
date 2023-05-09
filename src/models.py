@@ -67,21 +67,19 @@ class Answer(Word):
 
 class Attempt(BaseModel):
     guess: Guess
-    answer: Answer
+    clue: Clue
 
-    @property
-    def clue(self) -> Clue:
-        return self.guess.match(self.answer)
-
+    @classmethod
+    def from_answer(cls, guess: Guess, answer: Answer):
+        return cls(guess=guess, clue=answer.match(guess))
+    
     def is_successful(self) -> bool:
         return all(c == ClueEnum.correct for c in self.clue)
 
     def __str__(self):
-        header = f"[{self.answer}]"
-        sep = "-" * len(header)
         guess = f" {self.guess}"
         clues = f"  {self.clue}"
-        return "\n".join([header, sep, guess, clues, ''])
+        return "\n".join([guess, clues, ''])
 
 
 
