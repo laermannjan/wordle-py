@@ -1,4 +1,4 @@
-from src.models import Clue, Word, ClueEnum, Guess, Answer, Attempt
+from wordle.models import Clue, Word, ClueEnum, Guess, Answer, Attempt
 import pytest
 
 

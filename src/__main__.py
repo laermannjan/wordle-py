@@ -2,7 +2,7 @@ import os
 import random
 import logging
 
-from src.guesser import Guesser, Human
+from src.guesser import Guesser, AVAILABLE_GUESSERS
 from src.models import Answer, Attempt
 
 
@@ -30,10 +30,26 @@ def play(answer: Answer, guesser: Guesser):
     print("You lost!")
 
 
+def choose_guesser():
+    print("Available guessers:")
+    print("\n".join(f"{i}: {guesser.__name__} [{guesser.__doc__}]" for i, guesser in enumerate(AVAILABLE_GUESSERS)))
+    while True:
+        selection = input("Choose your guesser (0): ")
+        if selection == "":
+            selection = 0
+        try:
+            return AVAILABLE_GUESSERS[int(selection)]()
+        except (ValueError, IndexError):
+            print("Invalid selection. Try again.")
+
+
 def main():
     answer = Answer.from_word(random.choice(WORDS))
-    guesser = Human()
-    play(answer=answer, guesser=guesser)
+    try:
+        guesser = choose_guesser()
+        play(answer=answer, guesser=guesser)
+    except KeyboardInterrupt:
+        print("\n\nExiting...")
 
 
 if __name__ == "__main__":
