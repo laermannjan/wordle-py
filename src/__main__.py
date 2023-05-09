@@ -15,14 +15,15 @@ MAX_ATTEMPTS = 5
 
 
 def play(answer: Answer, guesser: Guesser):
+    attempts: list[Attempt] = []
     for attempt_id in range(MAX_ATTEMPTS):
-        guess = guesser.guess([])
+        guess = guesser.guess(past=attempts)
         attempt = Attempt.from_answer(
             guess=guess,
             answer=answer,
         )
-
         print(attempt)
+        attempts.append(attempt)
         if attempt.is_successful():
             print("You won!")
             return
