@@ -16,7 +16,7 @@ class ClueEnum(str, Enum):
 
 class Clue(BaseModel):
     letter_clues: Annotated[list[ClueEnum], Field(default_factory=list, min_items=5, max_items=5)]
-    
+
     def __iter__(self):
         return iter(self.letter_clues)
 
@@ -42,7 +42,8 @@ class Word(BaseModel):
 
     @classmethod
     def _match(cls, guess: Word, answer: Word) -> Clue:
-        # TODO: number of occurances matter. If a letter is once in the answer, but twice in the guess, only one should be misplace/correct, the other wrong
+        # TODO: number of occurances matter. If a letter is once in the answer,
+        #  but twice in the guess, only one should be misplace/correct, the other wrong
         letter_clues = []
         for i, letter in enumerate(guess.letters):
             if letter == answer.letters[i]:
@@ -72,15 +73,11 @@ class Attempt(BaseModel):
     @classmethod
     def from_answer(cls, guess: Guess, answer: Answer):
         return cls(guess=guess, clue=answer.match(guess))
-    
+
     def is_successful(self) -> bool:
         return all(c == ClueEnum.correct for c in self.clue)
 
     def __str__(self):
         guess = f" {self.guess}"
         clues = f"  {self.clue}"
-        return "\n".join([guess, clues, ''])
-
-
-
-
+        return "\n".join([guess, clues, ""])

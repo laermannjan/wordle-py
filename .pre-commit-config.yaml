@@ -13,10 +13,18 @@ repos:
         language: system
         types: [python]
 
-      - id: mypy
-        name: mypy
-        entry: pdm run mypy src tests
+      - id: mypy-src
+        name: mypy src
+        entry: pdm run mypy src
         language: system
+        pass_filenames: false
+        types: [python]
+
+      - id: mypy-tests
+        name: mypy tests
+        entry: pdm run mypy --ignore-missing-imports tests
+        language: system
+        pass_filenames: false
         types: [python]
 
       - id: unit-tests
