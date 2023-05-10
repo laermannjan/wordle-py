@@ -2,8 +2,8 @@ import os
 import random
 import logging
 
-from wordle.guesser import Guesser, AVAILABLE_GUESSERS
-from wordle.models import Answer, Attempt
+from wordle.core.guesser import Guesser, AVAILABLE_GUESSERS
+from wordle.core.models import Answer, Attempt
 
 
 logging.basicConfig(level=logging.INFO)

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from wordle.models import Guess, Attempt
+from wordle.core.models import Guess, Attempt
 from pydantic import ValidationError
 from typing import Sequence
 import random
